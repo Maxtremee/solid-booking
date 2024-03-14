@@ -13,7 +13,7 @@ export default function Nav() {
           <a href="/">Home</a>
         </li>
         <li class={`border-b-2 ${active("/about")} mx-1.5 sm:mx-6`}>
-          <a href="/about">About</a>
+          <a href="/dashboard">Dashboard</a>
         </li>
       </ul>
     </nav>

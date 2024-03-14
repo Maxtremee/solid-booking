@@ -1,9 +1,7 @@
-import { drizzle } from "drizzle-orm/better-sqlite3";
-import { migrate } from "drizzle-orm/better-sqlite3/migrator";
-import Database from 'better-sqlite3';
+import { drizzle } from "drizzle-orm/bun-sqlite";
+import { Database } from "bun:sqlite";
 
-const sqlite = new Database(process.env.DB_URL!);
-const db = drizzle(sqlite);
-migrate(db, { migrationsFolder: "drizzle" });
+import * as schema from "./schema";
 
-export { db };
+const sqlite = new Database("sqlite.db");
+export const db = drizzle(sqlite, { schema });

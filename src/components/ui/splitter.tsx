@@ -1,30 +1,28 @@
-import { Splitter } from "@ark-ui/solid";
-import type { ComponentProps } from "solid-js";
-import { tv } from "tailwind-variants";
-import { createStyleContext } from "~/lib/create-style-context";
+import type { ComponentProps } from 'solid-js'
+
+import { Splitter } from '@ark-ui/solid'
+import { tv } from 'tailwind-variants'
+
+import { createStyleContext } from '~/lib/create-style-context'
 
 const styles = tv(
   {
-    base: "splitter",
     slots: {
-      root: "splitter__root",
-      panel: "splitter__panel",
-      resizeTrigger: "splitter__resizeTrigger",
+      resizeTrigger: 'splitter__resizeTrigger',
+      panel: 'splitter__panel',
+      root: 'splitter__root',
     },
+    base: 'splitter',
     variants: {},
   },
   { twMerge: false },
-);
-const { withProvider, withContext } = createStyleContext(styles);
+)
+const { withProvider, withContext } = createStyleContext(styles)
 
-export const Root = withProvider(Splitter.Root, "root");
-export const Panel = withContext(Splitter.Panel, "panel");
-export const ResizeTrigger = withContext(
-  Splitter.ResizeTrigger,
-  "resizeTrigger",
-);
+export const Root = withProvider(Splitter.Root, 'root')
+export const Panel = withContext(Splitter.Panel, 'panel')
+export const ResizeTrigger = withContext(Splitter.ResizeTrigger, 'resizeTrigger')
 
-export type RootProps = ComponentProps<typeof Root>;
-export interface PanelProps extends ComponentProps<typeof Panel> {}
-export interface ResizeTriggerProps
-  extends ComponentProps<typeof ResizeTrigger> {}
+export type RootProps = ComponentProps<typeof Root>
+export type PanelProps = {} & ComponentProps<typeof Panel>
+export type ResizeTriggerProps = {} & ComponentProps<typeof ResizeTrigger>

@@ -1,6 +1,6 @@
 // @refresh reload
+import { FileRoutes } from "@solidjs/start/router";
 import { MetaProvider } from "@solidjs/meta";
-import { FileRoutes } from "@solidjs/start";
 import { Router } from "@solidjs/router";
 import { Suspense } from "solid-js";
 

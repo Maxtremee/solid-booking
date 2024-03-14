@@ -1,35 +1,37 @@
-import { ark } from "@ark-ui/solid";
-import type { ComponentProps } from "solid-js";
-import { tv } from "tailwind-variants";
-import { createStyleContext } from "~/lib/create-style-context";
+import type { ComponentProps } from 'solid-js'
+
+import { tv } from 'tailwind-variants'
+import { ark } from '@ark-ui/solid'
+
+import { createStyleContext } from '~/lib/create-style-context'
 
 const styles = tv(
   {
-    base: "card",
     slots: {
-      root: "card__root",
-      header: "card__header",
-      body: "card__body",
-      footer: "card__footer",
-      title: "card__title",
-      description: "card__description",
+      description: 'card__description',
+      header: 'card__header',
+      footer: 'card__footer',
+      title: 'card__title',
+      root: 'card__root',
+      body: 'card__body',
     },
+    base: 'card',
     variants: {},
   },
   { twMerge: false },
-);
-const { withProvider, withContext } = createStyleContext(styles);
+)
+const { withProvider, withContext } = createStyleContext(styles)
 
-export const Root = withProvider(ark.div, "root");
-export const Body = withContext(ark.div, "body");
-export const Description = withContext(ark.div, "description");
-export const Footer = withContext(ark.div, "footer");
-export const Header = withContext(ark.div, "header");
-export const Title = withContext(ark.h3, "title");
+export const Root = withProvider(ark.div, 'root')
+export const Body = withContext(ark.div, 'body')
+export const Description = withContext(ark.div, 'description')
+export const Footer = withContext(ark.div, 'footer')
+export const Header = withContext(ark.div, 'header')
+export const Title = withContext(ark.h3, 'title')
 
-export type RootProps = ComponentProps<typeof Root>;
-export interface BodyProps extends ComponentProps<typeof Body> {}
-export interface DescriptionProps extends ComponentProps<typeof Description> {}
-export interface FooterProps extends ComponentProps<typeof Footer> {}
-export interface HeaderProps extends ComponentProps<typeof Header> {}
-export interface TitleProps extends ComponentProps<typeof Title> {}
+export type RootProps = ComponentProps<typeof Root>
+export type BodyProps = {} & ComponentProps<typeof Body>
+export type DescriptionProps = {} & ComponentProps<typeof Description>
+export type FooterProps = {} & ComponentProps<typeof Footer>
+export type HeaderProps = {} & ComponentProps<typeof Header>
+export type TitleProps = {} & ComponentProps<typeof Title>

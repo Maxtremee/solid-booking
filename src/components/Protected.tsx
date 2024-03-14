@@ -1,8 +1,11 @@
-import { type Session } from "@auth/core/types";
-import { getSession } from "@auth/solid-start";
-import { Component, Show } from "solid-js";
-import { useRouteData } from "solid-start";
+import type { Session } from "@auth/core/types";
+import type { Component} from "solid-js";
+
 import { createServerData$, redirect } from "solid-start/server";
+import { getSession } from "@auth/solid-start";
+import { useRouteData } from "solid-start";
+import { Show } from "solid-js";
+
 import { authOpts } from "~/auth";
 
 const Protected = (Comp: IProtectedComponent) => {
@@ -10,7 +13,7 @@ const Protected = (Comp: IProtectedComponent) => {
     return createServerData$(
       async (_, event) => {
         const session = await getSession(event.request, authOpts);
-        if (!session || !session.user) {
+        if (!session?.user) {
           throw redirect("/");
         }
         return session;
@@ -20,7 +23,6 @@ const Protected = (Comp: IProtectedComponent) => {
   };
 
   return {
-    routeData,
     Page: () => {
       const session = useRouteData<typeof routeData>();
       return (
@@ -29,6 +31,7 @@ const Protected = (Comp: IProtectedComponent) => {
         </Show>
       );
     },
+    routeData,
   };
 };
 

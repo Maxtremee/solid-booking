@@ -1,41 +1,42 @@
-import { Dialog } from "@ark-ui/solid";
-import type { ComponentProps } from "solid-js";
-import { tv } from "tailwind-variants";
-import { createStyleContext } from "~/lib/create-style-context";
+import type { ComponentProps } from 'solid-js'
+
+import { Dialog } from '@ark-ui/solid'
+import { tv } from 'tailwind-variants'
+
+import { createStyleContext } from '~/lib/create-style-context'
 
 const styles = tv(
   {
-    base: "dialog",
     slots: {
-      trigger: "dialog__trigger",
-      backdrop: "dialog__backdrop",
-      positioner: "dialog__positioner",
-      content: "dialog__content",
-      title: "dialog__title",
-      description: "dialog__description",
-      closeTrigger: "dialog__closeTrigger",
+      closeTrigger: 'dialog__closeTrigger',
+      description: 'dialog__description',
+      positioner: 'dialog__positioner',
+      backdrop: 'dialog__backdrop',
+      trigger: 'dialog__trigger',
+      content: 'dialog__content',
+      title: 'dialog__title',
     },
+    base: 'dialog',
     variants: {},
   },
   { twMerge: false },
-);
-const { withProvider, withContext } = createStyleContext(styles);
+)
+const { withProvider, withContext } = createStyleContext(styles)
 
-export const Root = withProvider(Dialog.Root);
-export const Backdrop = withContext(Dialog.Backdrop, "backdrop");
-export const CloseTrigger = withContext(Dialog.CloseTrigger, "closeTrigger");
-export const Content = withContext(Dialog.Content, "content");
-export const Description = withContext(Dialog.Description, "description");
-export const Positioner = withContext(Dialog.Positioner, "positioner");
-export const Title = withContext(Dialog.Title, "title");
-export const Trigger = withContext(Dialog.Trigger, "trigger");
+export const Root = withProvider(Dialog.Root)
+export const Backdrop = withContext(Dialog.Backdrop, 'backdrop')
+export const CloseTrigger = withContext(Dialog.CloseTrigger, 'closeTrigger')
+export const Content = withContext(Dialog.Content, 'content')
+export const Description = withContext(Dialog.Description, 'description')
+export const Positioner = withContext(Dialog.Positioner, 'positioner')
+export const Title = withContext(Dialog.Title, 'title')
+export const Trigger = withContext(Dialog.Trigger, 'trigger')
 
-export type RootProps = ComponentProps<typeof Root>;
-export interface BackdropProps extends ComponentProps<typeof Backdrop> {}
-export interface CloseTriggerProps
-  extends ComponentProps<typeof CloseTrigger> {}
-export interface ContentProps extends ComponentProps<typeof Content> {}
-export interface DescriptionProps extends ComponentProps<typeof Description> {}
-export interface PositionerProps extends ComponentProps<typeof Positioner> {}
-export interface TitleProps extends ComponentProps<typeof Title> {}
-export interface TriggerProps extends ComponentProps<typeof Trigger> {}
+export type RootProps = ComponentProps<typeof Root>
+export type BackdropProps = {} & ComponentProps<typeof Backdrop>
+export type CloseTriggerProps = {} & ComponentProps<typeof CloseTrigger>
+export type ContentProps = {} & ComponentProps<typeof Content>
+export type DescriptionProps = {} & ComponentProps<typeof Description>
+export type PositionerProps = {} & ComponentProps<typeof Positioner>
+export type TitleProps = {} & ComponentProps<typeof Title>
+export type TriggerProps = {} & ComponentProps<typeof Trigger>

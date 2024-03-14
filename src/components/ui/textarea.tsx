@@ -1,30 +1,28 @@
-import { type HTMLArkProps, ark } from "@ark-ui/solid";
-import { splitProps } from "solid-js";
-import { type VariantProps, tv } from "tailwind-variants";
+import { type VariantProps, tv } from 'tailwind-variants'
+import { type HTMLArkProps, ark } from '@ark-ui/solid'
+import { splitProps } from 'solid-js'
 
-export interface TextareaProps
-  extends TextareaVariantProps,
-    HTMLArkProps<"textarea"> {}
+export type TextareaProps = {} & TextareaVariantProps & HTMLArkProps<'textarea'>
 
 export const Textarea = (props: TextareaProps) => {
-  const [variantProps, textareaProps] = splitProps(props, ["class", "size"]);
-  return <ark.textarea class={styles(variantProps)} {...textareaProps} />;
-};
+  const [variantProps, textareaProps] = splitProps(props, ['class', 'size'])
+  return <ark.textarea class={styles(variantProps)} {...textareaProps} />
+}
 
-type TextareaVariantProps = VariantProps<typeof styles>;
+type TextareaVariantProps = VariantProps<typeof styles>
 
 const styles = tv(
   {
-    base: "textarea",
-    defaultVariants: { size: "md" },
     variants: {
       size: {
-        sm: "textarea--size_sm",
-        md: "textarea--size_md",
-        lg: "textarea--size_lg",
-        xl: "textarea--size_xl",
+        sm: 'textarea--size_sm',
+        md: 'textarea--size_md',
+        lg: 'textarea--size_lg',
+        xl: 'textarea--size_xl',
       },
     },
+    defaultVariants: { size: 'md' },
+    base: 'textarea',
   },
   { twMerge: false },
-);
+)

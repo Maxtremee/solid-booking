@@ -1,43 +1,37 @@
-import { type HTMLArkProps, ark } from "@ark-ui/solid";
-import { splitProps } from "solid-js";
-import { type VariantProps, tv } from "tailwind-variants";
+import { type VariantProps, tv } from 'tailwind-variants'
+import { type HTMLArkProps, ark } from '@ark-ui/solid'
+import { splitProps } from 'solid-js'
 
-export interface ButtonProps
-  extends ButtonVariantProps,
-    HTMLArkProps<"button"> {}
+export type ButtonProps = {} & ButtonVariantProps & HTMLArkProps<'button'>
 
 export const Button = (props: ButtonProps) => {
-  const [variantProps, buttonProps] = splitProps(props, [
-    "class",
-    "size",
-    "variant",
-  ]);
-  return <ark.button class={styles(variantProps)} {...buttonProps} />;
-};
+  const [variantProps, buttonProps] = splitProps(props, ['class', 'size', 'variant'])
+  return <ark.button class={styles(variantProps)} {...buttonProps} />
+}
 
-type ButtonVariantProps = VariantProps<typeof styles>;
+type ButtonVariantProps = VariantProps<typeof styles>
 
 const styles = tv(
   {
-    base: "button",
-    defaultVariants: { variant: "solid", size: "md" },
     variants: {
       variant: {
-        solid: "button--variant_solid",
-        outline: "button--variant_outline",
-        ghost: "button--variant_ghost",
-        link: "button--variant_link",
-        subtle: "button--variant_subtle",
+        outline: 'button--variant_outline',
+        subtle: 'button--variant_subtle',
+        solid: 'button--variant_solid',
+        ghost: 'button--variant_ghost',
+        link: 'button--variant_link',
       },
       size: {
-        xs: "button--size_xs",
-        sm: "button--size_sm",
-        md: "button--size_md",
-        lg: "button--size_lg",
-        xl: "button--size_xl",
-        "2xl": "button--size_2xl",
+        '2xl': 'button--size_2xl',
+        xs: 'button--size_xs',
+        sm: 'button--size_sm',
+        md: 'button--size_md',
+        lg: 'button--size_lg',
+        xl: 'button--size_xl',
       },
     },
+    defaultVariants: { variant: 'solid', size: 'md' },
+    base: 'button',
   },
   { twMerge: false },
-);
+)
