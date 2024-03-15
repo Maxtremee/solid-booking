@@ -1,4 +1,5 @@
 import { sqliteTable, integer, text } from "drizzle-orm/sqlite-core";
+import { createId } from "@paralleldrive/cuid2";
 
 export const users = sqliteTable("user", {
   github_id: integer("github_id").unique(),
@@ -15,4 +16,14 @@ export const sessions = sqliteTable("session", {
     .references(() => users.id),
   expiresAt: integer("expires_at").notNull(),
   id: text("id").notNull().primaryKey(),
+});
+
+export const accomodations = sqliteTable("accomodation", {
+  id: text("id")
+    .primaryKey()
+    .$defaultFn(() => createId()),
+  name: text("name").notNull(),
+  description: text("description").notNull(),
+  location: text("location").notNull(),
+  price: integer("price").notNull(),
 });

@@ -1,9 +1,9 @@
 export default function NotFound() {
   return (
-    <main class="text-center mx-auto text-gray-700 p-4">
-      <h1 class="max-6-xs text-6xl text-sky-700 font-thin uppercase my-16">
+    <div class="p-4 text-center text-gray-700">
+      <h1 class="max-6-xs my-16 text-6xl font-thin uppercase text-sky-700">
         Not Found
       </h1>
-    </main>
+    </div>
   );
 }

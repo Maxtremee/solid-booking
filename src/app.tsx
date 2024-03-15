@@ -18,7 +18,9 @@ export default function App() {
             <Show when={props.location.pathname !== "/login"}>
               <Nav />
             </Show>
-            <Suspense>{props.children}</Suspense>
+            <Suspense>
+              <main class="mx-auto max-w-3xl p-3">{props.children}</main>
+            </Suspense>
           </>
         )}
       >

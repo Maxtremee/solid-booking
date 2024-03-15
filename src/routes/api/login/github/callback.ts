@@ -1,14 +1,12 @@
 import type { APIEvent } from "@solidjs/start/server";
 
 import { appendHeader, getCookie, getQuery } from "vinxi/http";
-import { OAuth2RequestError } from "arctic";
 import { redirect } from "@solidjs/router";
 import { generateId } from "lucia";
 
 import { github, lucia } from "~/lib/auth";
-import { sessions, users } from "~/db/schema";
+import { users } from "~/db/schema";
 import { db } from "~/db";
-import { eq } from "drizzle-orm";
 
 export async function GET({ nativeEvent }: APIEvent) {
   const storedState = getCookie(nativeEvent, "github_oauth_state") ?? null;
@@ -73,6 +71,7 @@ export async function GET({ nativeEvent }: APIEvent) {
       return redirect(`/500?error=${e.message}`);
     }
     console.error(e);
+    return redirect("/500");
   }
 }
 

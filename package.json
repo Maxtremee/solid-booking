@@ -16,6 +16,7 @@
   "dependencies": {
     "@ark-ui/solid": "2.2.0",
     "@lucia-auth/adapter-drizzle": "1.0.4",
+    "@paralleldrive/cuid2": "^2.2.2",
     "@park-ui/tailwind-plugin": "0.19.1",
     "@solidjs/meta": "0.29.3",
     "@solidjs/router": "0.13.0",

@@ -1,5 +1,5 @@
-import { Title } from "@solidjs/meta";
+import { Heading } from "~/components/ui/heading";
 
 export default function Home() {
-  return <Title>Home</Title>;
+  return <Heading size="2xl">Home</Heading>;
 }

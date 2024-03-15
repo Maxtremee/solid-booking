@@ -62,7 +62,7 @@ export default function Nav() {
             </Menu.Trigger>
             <Menu.Positioner>
               <Menu.Content>
-                <Menu.Item id="logout" as="a" href="/api/logout" rel="external">
+                <Menu.Item id="logout" as={A} href="/api/logout" rel="external">
                   <FiLogOut /> Logout
                 </Menu.Item>
               </Menu.Content>

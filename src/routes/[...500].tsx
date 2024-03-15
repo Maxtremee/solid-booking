@@ -1,16 +1,17 @@
-import { useSearchParams } from "@solidjs/router";
+import { RouteSectionProps } from "@solidjs/router";
 import { Show } from "solid-js";
 
 import { Heading } from "~/components/ui/heading";
 
-export default function Error() {
-  const [params] = useSearchParams();
+export default function Error(props: RouteSectionProps) {
   return (
-    <main class="mx-auto p-4 text-center text-gray-700">
-      <Heading as="h1">Error</Heading>
-      <Show when={params.error}>
-        <Heading as="h2">{params.error}</Heading>
+    <div class="text-center">
+      <Heading as="h1" size="xl">
+        Error
+      </Heading>
+      <Show when={props.location.query?.error}>
+        <Heading as="h2">{props.location.query.error}</Heading>
       </Show>
-    </main>
+    </div>
   );
 }

@@ -1,11 +1,11 @@
 {
   "version": "5",
   "dialect": "sqlite",
-  "id": "4798e12a-6166-4f02-b437-acd1b5691591",
+  "id": "4a29d95c-f0e9-4c56-90aa-284156003211",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
-    "session": {
-      "name": "session",
+    "accomodation": {
+      "name": "accomodation",
       "columns": {
         "id": {
           "name": "id",
@@ -14,6 +14,43 @@
           "notNull": true,
           "autoincrement": false
         },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "description": {
+          "name": "description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "location": {
+          "name": "location",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "price": {
+          "name": "price",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "session": {
+      "name": "session",
+      "columns": {
         "user_id": {
           "name": "user_id",
           "type": "text",
@@ -25,6 +62,13 @@
           "name": "expires_at",
           "type": "integer",
           "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
           "notNull": true,
           "autoincrement": false
         }
@@ -51,18 +95,25 @@
     "user": {
       "name": "user",
       "columns": {
-        "id": {
-          "name": "id",
-          "type": "text",
-          "primaryKey": true,
-          "notNull": true,
-          "autoincrement": false
-        },
         "github_id": {
           "name": "github_id",
           "type": "integer",
           "primaryKey": false,
           "notNull": false,
+          "autoincrement": false
+        },
+        "email": {
+          "name": "email",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true,
           "autoincrement": false
         },
         "username": {
@@ -71,6 +122,20 @@
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false
+        },
+        "avatar": {
+          "name": "avatar",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
         }
       },
       "indexes": {
@@ -78,6 +143,13 @@
           "name": "user_github_id_unique",
           "columns": [
             "github_id"
+          ],
+          "isUnique": true
+        },
+        "user_email_unique": {
+          "name": "user_email_unique",
+          "columns": [
+            "email"
           ],
           "isUnique": true
         }

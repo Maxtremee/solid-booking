@@ -4,7 +4,7 @@ import { Heading } from "~/components/ui/heading";
 
 export default function LoginPage() {
   return (
-    <main class="flex h-screen flex-col items-center justify-center gap-6">
+    <div class="flex h-screen flex-col items-center justify-center gap-6">
       <Heading as="h1" class="text--size_4xl">
         Solid Booking
       </Heading>
@@ -13,6 +13,6 @@ export default function LoginPage() {
           Sign in
         </Button>
       </A>
-    </main>
+    </div>
   );
 }
