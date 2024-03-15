@@ -6,10 +6,8 @@ import { Heading } from "~/components/ui/heading";
 export default function Error() {
   const [params] = useSearchParams();
   return (
-    <main class="text-center mx-auto text-gray-700 p-4">
-      <h1 class="max-6-xs text-6xl text-sky-700 font-thin uppercase my-16">
-        Error
-      </h1>
+    <main class="mx-auto p-4 text-center text-gray-700">
+      <Heading as="h1">Error</Heading>
       <Show when={params.error}>
         <Heading as="h2">{params.error}</Heading>
       </Show>

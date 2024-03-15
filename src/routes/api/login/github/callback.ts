@@ -6,14 +6,15 @@ import { redirect } from "@solidjs/router";
 import { generateId } from "lucia";
 
 import { github, lucia } from "~/lib/auth";
-import { users } from "~/db/schema";
+import { sessions, users } from "~/db/schema";
 import { db } from "~/db";
+import { eq } from "drizzle-orm";
 
 export async function GET({ nativeEvent }: APIEvent) {
-  const query = getQuery(nativeEvent);
-  const code = String(query.code);
-  const state = String(query.state);
   const storedState = getCookie(nativeEvent, "github_oauth_state") ?? null;
+  const query = getQuery(nativeEvent);
+  const state = String(query.state);
+  const code = String(query.code);
 
   if (!code || !state || !storedState || state !== storedState) {
     return redirect("/500?error=invalid_state");
@@ -47,8 +48,11 @@ export async function GET({ nativeEvent }: APIEvent) {
     const userId = generateId(15);
 
     await db.insert(users).values({
+      avatar: githubUser.avatar_url,
       username: githubUser.login,
       github_id: githubUser.id,
+      email: githubUser.email,
+      name: githubUser.name,
       id: userId,
     });
 
@@ -63,14 +67,19 @@ export async function GET({ nativeEvent }: APIEvent) {
     return redirect("/");
   } catch (e) {
     // the specific error message depends on the provider
-    if (e instanceof OAuth2RequestError) {
+    if (e instanceof Error) {
+      // if (e instanceof OAuth2RequestError) {
       // invalid code
       return redirect(`/500?error=${e.message}`);
     }
+    console.error(e);
   }
 }
 
 type GitHubUser = {
+  avatar_url: string;
+  email: string;
   login: string;
+  name: string;
   id: number;
-}
+};

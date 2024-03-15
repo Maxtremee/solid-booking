@@ -2,7 +2,7 @@
 import { FileRoutes } from "@solidjs/start/router";
 import { MetaProvider } from "@solidjs/meta";
 import { Router } from "@solidjs/router";
-import { Suspense } from "solid-js";
+import { Show, Suspense } from "solid-js";
 
 import Nav from "~/components/Nav";
 
@@ -15,7 +15,9 @@ export default function App() {
       <Router
         root={(props) => (
           <>
-            <Nav />
+            <Show when={props.location.pathname !== "/login"}>
+              <Nav />
+            </Show>
             <Suspense>{props.children}</Suspense>
           </>
         )}

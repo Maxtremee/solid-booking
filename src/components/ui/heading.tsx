@@ -14,7 +14,6 @@ export const Heading = (props: HeadingProps) => {
   const [variantProps, headingProps] = splitProps(mergedProps, ['size', 'class', 'variant'])
   const [localProps, rootProps] = splitProps(headingProps, ['as'])
   const className = styles({ variant: 'heading', size: 'sm' })
-  console.log(className)
 
   return <Dynamic component={localProps.as} class={className} {...rootProps} />
 }

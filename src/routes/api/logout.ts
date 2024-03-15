@@ -9,7 +9,7 @@ export async function GET({ nativeEvent }: APIEvent) {
 
   if (!sessionId) {
     // if no session just return to home page
-    return sendRedirect("/");
+    return sendRedirect("/login");
   }
 
   await lucia.invalidateSession(sessionId);
@@ -20,5 +20,5 @@ export async function GET({ nativeEvent }: APIEvent) {
     lucia.createBlankSessionCookie().serialize(),
   );
 
-  return sendRedirect("/");
+  return sendRedirect("/login");
 }

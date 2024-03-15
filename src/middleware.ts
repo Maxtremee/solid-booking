@@ -1,20 +1,10 @@
 import type { Session, User } from "lucia";
 
-import {
-  appendHeader,
-  sendRedirect,
-  getCookie,
-  getHeader,
-  setCookie,
-} from "vinxi/http";
+import { appendHeader, getCookie, getHeader, sendRedirect } from "vinxi/http";
 import { createMiddleware } from "@solidjs/start/middleware";
 import { verifyRequestOrigin } from "lucia";
-import crypto from "crypto";
 
 import { lucia } from "./lib/auth";
-
-// //@ts-expect-error
-// global.crypto = crypto;
 
 export default createMiddleware({
   onRequest: async ({ nativeEvent }) => {
@@ -61,19 +51,18 @@ export default createMiddleware({
     nativeEvent.context.user = user;
   },
   // onBeforeResponse: async ({ request, nativeEvent }) => {
-  //   console.log(request.url, nativeEvent.context.user);
   //   if (
-  //     new URL(request.url).pathname.startsWith("/dashboard") &&
+  //     new URL(request.url).pathname !== "/login" &&
   //     !nativeEvent.context.user
   //   ) {
-  //     return sendRedirect("/");
+  //     return sendRedirect("/login");
   //   }
   // },
 });
 
 declare module "vinxi/http" {
-  type H3EventContext = {
+  interface H3EventContext {
     session: Session | null;
     user: User | null;
-  };
+  }
 }
