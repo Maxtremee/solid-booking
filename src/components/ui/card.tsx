@@ -1,37 +1,33 @@
-import type { ComponentProps } from 'solid-js'
-
-import { tv } from 'tailwind-variants'
-import { ark } from '@ark-ui/solid'
-
+import { type HTMLArkProps, ark } from '@ark-ui/solid'
+import { type VariantProps, tv } from 'tailwind-variants'
 import { createStyleContext } from '~/lib/create-style-context'
 
-const styles = tv(
+const card = tv(
   {
+    base: 'card',
     slots: {
-      description: 'card__description',
+      root: 'card__root',
       header: 'card__header',
+      body: 'card__body',
       footer: 'card__footer',
       title: 'card__title',
-      root: 'card__root',
-      body: 'card__body',
+      description: 'card__description',
     },
-    base: 'card',
     variants: {},
   },
   { twMerge: false },
 )
-const { withProvider, withContext } = createStyleContext(styles)
+const { withProvider, withContext } = createStyleContext(card)
 
-export const Root = withProvider(ark.div, 'root')
-export const Body = withContext(ark.div, 'body')
-export const Description = withContext(ark.div, 'description')
-export const Footer = withContext(ark.div, 'footer')
-export const Header = withContext(ark.div, 'header')
-export const Title = withContext(ark.h3, 'title')
+export interface RootProps extends HTMLArkProps<'div'>, VariantProps<typeof card> {}
+export const Root = withProvider<RootProps>(ark.div, 'root')
 
-export type RootProps = ComponentProps<typeof Root>
-export type BodyProps = {} & ComponentProps<typeof Body>
-export type DescriptionProps = {} & ComponentProps<typeof Description>
-export type FooterProps = {} & ComponentProps<typeof Footer>
-export type HeaderProps = {} & ComponentProps<typeof Header>
-export type TitleProps = {} & ComponentProps<typeof Title>
+export const Body = withContext<HTMLArkProps<'div'>>(ark.div, 'body')
+
+export const Description = withContext<HTMLArkProps<'div'>>(ark.div, 'description')
+
+export const Footer = withContext<HTMLArkProps<'div'>>(ark.div, 'footer')
+
+export const Header = withContext<HTMLArkProps<'div'>>(ark.div, 'header')
+
+export const Title = withContext<HTMLArkProps<'h3'>>(ark.h3, 'title')

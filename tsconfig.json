@@ -10,12 +10,23 @@
 		"allowJs": true,
 		"noEmit": true,
 		"strict": true,
-		"types": ["vinxi/client"],
+		"types": [
+			"vinxi/client"
+		],
 		"isolatedModules": true,
 		"paths": {
-      "~/*": ["./src/*"]
-    },
-		"baseUrl": "."
+			"~/*": [
+				"./src/*"
+			]
+		},
+		"baseUrl": ".",
+		"incremental": true
 	},
-	"include": ["src", "styled-system"]
+	"include": [
+		"src",
+		"styled-system"
+	],
+	"exclude": [
+		"node_modules"
+	]
 }

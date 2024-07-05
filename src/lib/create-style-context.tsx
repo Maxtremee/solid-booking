@@ -1,74 +1,73 @@
-import {
-  type ComponentProps,
-  type ValidComponent,
-  createContext,
-  splitProps,
-  useContext,
-} from "solid-js";
-import { Dynamic } from "solid-js/web";
+import { type Component, type JSX, createContext, splitProps, useContext } from 'solid-js'
+import { Dynamic } from 'solid-js/web'
 
 type Recipe = {
-  (props: Record<string, unknown>): Record<string, CallableFunction>;
-  variantKeys: string[];
-};
+  (props: Record<string, unknown>): Record<string, CallableFunction>
+  variantKeys: string[]
+}
+type Slot<R extends Recipe> = keyof ReturnType<R>
+type ElementType<P = {}> = keyof JSX.IntrinsicElements | Component<P>
 
-type PolymorphicProps<T extends ValidComponent, P = ComponentProps<T>> = {
-  [K in keyof P]: P[K];
-};
-
-type Slot<R extends Recipe> = keyof ReturnType<R>;
-type SlotRecipe<R extends Recipe> = Record<Slot<R>, CallableFunction>;
-type VariantProps<R extends Recipe> = Parameters<R>[0];
-
-const cx = (...args: (undefined | string)[]) => args.filter(Boolean).join(" ");
+const cx = (...args: (string | undefined)[]) => args.filter(Boolean).join(' ')
 
 export const createStyleContext = <R extends Recipe>(recipe: R) => {
-  const StyleContext = createContext<SlotRecipe<R> | null>(null);
+  const StyleContext = createContext<Record<Slot<R>, () => string> | null>(null)
 
-  const withProvider = <T extends ValidComponent>(
-    Component: T,
-    slot?: string,
-  ) => {
-    const StyledComponent = (props: PolymorphicProps<T> & VariantProps<R>) => {
-      const [variantProps, componentProps] = splitProps(props, [
-        "class",
-        ...recipe.variantKeys,
-      ]) as unknown as [VariantProps<R>, PolymorphicProps<T>];
-      const styles = recipe(variantProps) as SlotRecipe<R>;
+  const withRootProvider = <P extends {}>(
+    Component: ElementType<P>,
+  ): ((props: P) => JSX.Element) => {
+    const StyledComponent = (props: P) => {
+      const slotStyles = recipe(props) as Record<Slot<R>, () => string>
 
       return (
-        <StyleContext.Provider value={styles}>
+        <StyleContext.Provider value={slotStyles}>
+          <Component {...props} />
+        </StyleContext.Provider>
+      )
+    }
+    return StyledComponent
+  }
+
+  const withProvider = <P extends { class?: string }>(
+    Component: ElementType<P>,
+    slot: Slot<R>,
+  ): ((props: P) => JSX.Element) => {
+    const StyledComponent = (props: P) => {
+      const [variantProps, componentProps] = splitProps(props, [
+        'class',
+        ...(recipe.variantKeys as Array<keyof P>),
+      ])
+      const slotStyles = recipe(variantProps) as Record<Slot<R>, () => string>
+
+      return (
+        <StyleContext.Provider value={slotStyles}>
           <Dynamic
             component={Component}
             {...componentProps}
-            class={cx(styles?.[slot ?? ""]?.(), props.class)}
+            class={cx(slotStyles?.[slot](), props.class)}
           />
         </StyleContext.Provider>
-      );
-    };
-    return StyledComponent;
-  };
+      )
+    }
+    return StyledComponent
+  }
 
-  const withContext = <T extends ValidComponent>(
-    Component: T,
-    slot?: string,
-  ): T => {
-    if (!slot) return Component;
-    const StyledComponent = (props: PolymorphicProps<T>) => {
-      const styles = useContext(StyleContext);
+  const withContext = <P extends { class?: string }>(
+    Component: ElementType<P>,
+    slot: Slot<R>,
+  ): ((props: P) => JSX.Element) => {
+    const StyledComponent = (props: P) => {
+      const slotStyles = useContext(StyleContext)
       return (
-        <Dynamic
-          component={Component}
-          {...props}
-          class={cx(styles?.[slot]?.(), props.class)}
-        />
-      );
-    };
-    return StyledComponent as T;
-  };
+        <Dynamic component={Component} {...props} class={cx(slotStyles?.[slot](), props.class)} />
+      )
+    }
+    return StyledComponent
+  }
 
   return {
+    withRootProvider,
     withProvider,
     withContext,
-  };
-};
+  }
+}

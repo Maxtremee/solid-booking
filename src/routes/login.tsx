@@ -8,11 +8,14 @@ export default function LoginPage() {
       <Heading as="h1" class="text--size_4xl">
         Solid Booking
       </Heading>
-      <A href="/api/login/github" rel="external">
-        <Button variant="ghost" as="span">
-          Sign in
-        </Button>
-      </A>
+      <Button
+        variant="ghost"
+        asChild={(props) => (
+          <A {...props()} href="/api/login/github" rel="external">
+            Sign in
+          </A>
+        )}
+      />
     </div>
   );
 }

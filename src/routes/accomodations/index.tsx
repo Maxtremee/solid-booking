@@ -33,13 +33,15 @@ export default function Accomodations() {
         <Show when={accomodations()}>
           <For each={accomodations()}>
             {(accomodation) => (
-              <Card.Root as={A} href={`/accomodations/${accomodation.id}`}>
-                <Card.Header>
-                  <Card.Title>{accomodation.name}</Card.Title>
-                </Card.Header>
-                <Card.Body>{accomodation.description}</Card.Body>
-                <Card.Footer>${accomodation.price}</Card.Footer>
-              </Card.Root>
+              <A href={`/accomodations/${accomodation.id}`}>
+                <Card.Root>
+                  <Card.Header>
+                    <Card.Title>{accomodation.name}</Card.Title>
+                  </Card.Header>
+                  <Card.Body>{accomodation.description}</Card.Body>
+                  <Card.Footer>${accomodation.price}</Card.Footer>
+                </Card.Root>
+              </A>
             )}
           </For>
         </Show>

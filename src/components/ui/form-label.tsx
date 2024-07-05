@@ -1,18 +1,20 @@
-import { type VariantProps, tv } from 'tailwind-variants'
 import { type HTMLArkProps, ark } from '@ark-ui/solid'
 import { splitProps } from 'solid-js'
+import { type VariantProps, tv } from 'tailwind-variants'
 
-export type FormLabelProps = {} & FormLabelVariantProps & HTMLArkProps<'label'>
+export interface FormLabelProps extends FormLabelVariantProps, HTMLArkProps<'label'> {}
 
 export const FormLabel = (props: FormLabelProps) => {
   const [variantProps, formLabelProps] = splitProps(props, ['class', 'size'])
-  return <ark.label class={styles(variantProps)} {...formLabelProps} />
+  return <ark.label class={formLabel(variantProps)} {...formLabelProps} />
 }
 
-type FormLabelVariantProps = VariantProps<typeof styles>
+type FormLabelVariantProps = VariantProps<typeof formLabel>
 
-const styles = tv(
+const formLabel = tv(
   {
+    base: 'formLabel',
+    defaultVariants: { size: 'md' },
     variants: {
       size: {
         sm: 'formLabel--size_sm',
@@ -21,8 +23,6 @@ const styles = tv(
         xl: 'formLabel--size_xl',
       },
     },
-    defaultVariants: { size: 'md' },
-    base: 'formLabel',
   },
   { twMerge: false },
 )

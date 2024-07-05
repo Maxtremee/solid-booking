@@ -1,16 +1,14 @@
-import { type SwitchRootProps, Switch as ArkSwitch } from '@ark-ui/solid'
-import { splitProps, type JSX, children, Show } from 'solid-js'
+import { Switch as ArkSwitch, type SwitchRootProps } from '@ark-ui/solid'
+import { Show, children, splitProps } from 'solid-js'
 import { type VariantProps, tv } from 'tailwind-variants'
 
-export type SwitchProps = {
-  children?: JSX.Element
-} & SwitchRootProps & SwitchVariantProps
+export interface SwitchProps extends SwitchRootProps, SwitchVariantProps {}
 
 export const Switch = (props: SwitchProps) => {
   const [variantProps, switchProps] = splitProps(props, ['size', 'class'])
   const [localProps, rootProps] = splitProps(switchProps, ['children'])
   const getChildren = children(() => localProps.children)
-  const { control, label, thumb, root } = styles(variantProps)
+  const { root, control, label, thumb } = styles(variantProps)
 
   return (
     <ArkSwitch.Root class={root()} {...rootProps}>
@@ -28,36 +26,36 @@ type SwitchVariantProps = VariantProps<typeof styles>
 
 const styles = tv(
   {
+    base: 'switchRecipe',
+    defaultVariants: { size: 'md' },
+    slots: {
+      root: 'switchRecipe__root',
+      label: 'switchRecipe__label',
+      control: 'switchRecipe__control',
+      thumb: 'switchRecipe__thumb',
+    },
     variants: {
       size: {
         sm: {
-          control: 'switchRecipe__control--size_sm',
-          label: 'switchRecipe__label--size_sm',
-          thumb: 'switchRecipe__thumb--size_sm',
           root: 'switchRecipe__root--size_sm',
+          label: 'switchRecipe__label--size_sm',
+          control: 'switchRecipe__control--size_sm',
+          thumb: 'switchRecipe__thumb--size_sm',
         },
         md: {
-          control: 'switchRecipe__control--size_md',
-          label: 'switchRecipe__label--size_md',
-          thumb: 'switchRecipe__thumb--size_md',
           root: 'switchRecipe__root--size_md',
+          label: 'switchRecipe__label--size_md',
+          control: 'switchRecipe__control--size_md',
+          thumb: 'switchRecipe__thumb--size_md',
         },
         lg: {
-          control: 'switchRecipe__control--size_lg',
-          label: 'switchRecipe__label--size_lg',
-          thumb: 'switchRecipe__thumb--size_lg',
           root: 'switchRecipe__root--size_lg',
+          label: 'switchRecipe__label--size_lg',
+          control: 'switchRecipe__control--size_lg',
+          thumb: 'switchRecipe__thumb--size_lg',
         },
       },
     },
-    slots: {
-      control: 'switchRecipe__control',
-      label: 'switchRecipe__label',
-      thumb: 'switchRecipe__thumb',
-      root: 'switchRecipe__root',
-    },
-    defaultVariants: { size: 'md' },
-    base: 'switchRecipe',
   },
   { twMerge: false },
 )

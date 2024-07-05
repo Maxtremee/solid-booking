@@ -1,28 +1,27 @@
-import { type VariantProps, tv } from 'tailwind-variants'
 import { type HTMLArkProps, ark } from '@ark-ui/solid'
-import { splitProps, type JSX, Show } from 'solid-js'
+import { Show, splitProps } from 'solid-js'
+import { type VariantProps, tv } from 'tailwind-variants'
 
-export type SkeletonProps = {
-  children?: JSX.Element
+export interface SkeletonProps extends HTMLArkProps<'div'>, SkeletonVariantProps {
   /**
    * @default false
    */
   isLoaded?: boolean
-} & HTMLArkProps<'div'> & SkeletonVariantProps
+}
 
 export const Skeleton = (props: SkeletonProps) => {
   const [localProps, skeletonProps] = splitProps(props, ['class', 'isLoaded'])
 
   return (
     <Show
-      fallback={<ark.div class={styles({ class: localProps.class })} {...skeletonProps} />}
       when={localProps.isLoaded}
+      fallback={<ark.div class={skeleton({ class: localProps.class })} {...skeletonProps} />}
     >
       <ark.div class="animate-fade-in" {...skeletonProps} />
     </Show>
   )
 }
 
-type SkeletonVariantProps = VariantProps<typeof styles>
+type SkeletonVariantProps = VariantProps<typeof skeleton>
 
-const styles = tv({ base: 'skeleton', variants: {} }, { twMerge: false })
+const skeleton = tv({ base: 'skeleton', variants: {} }, { twMerge: false })

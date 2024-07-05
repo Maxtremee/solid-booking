@@ -1,34 +1,42 @@
-import type { ComponentProps } from 'solid-js'
-
-import { tv } from 'tailwind-variants'
 import { Toast } from '@ark-ui/solid'
-
+import { type VariantProps, tv } from 'tailwind-variants'
 import { createStyleContext } from '~/lib/create-style-context'
 
-const styles = tv(
+const toast = tv(
   {
-    slots: {
-      closeTrigger: 'toast__closeTrigger',
-      description: 'toast__description',
-      group: 'toast__group',
-      title: 'toast__title',
-      root: 'toast__root',
-    },
     base: 'toast',
+    slots: {
+      group: 'toast__group',
+      root: 'toast__root',
+      title: 'toast__title',
+      description: 'toast__description',
+      actionTrigger: 'toast__actionTrigger',
+      closeTrigger: 'toast__closeTrigger',
+    },
     variants: {},
   },
   { twMerge: false },
 )
-const { withProvider, withContext } = createStyleContext(styles)
+const { withProvider, withContext } = createStyleContext(toast)
 
-export const Root = withProvider(Toast.Root, 'root')
-export const CloseTrigger = withContext(Toast.CloseTrigger, 'closeTrigger')
-export const Description = withContext(Toast.Description, 'description')
-export const Group = withContext(Toast.Group, 'group')
-export const Title = withContext(Toast.Title, 'title')
+export interface RootProps extends Toast.RootProps, VariantProps<typeof toast> {}
+export const Root = withProvider<RootProps>(Toast.Root, 'root')
 
-export type RootProps = ComponentProps<typeof Root>
-export type CloseTriggerProps = {} & ComponentProps<typeof CloseTrigger>
-export type DescriptionProps = {} & ComponentProps<typeof Description>
-export type GroupProps = {} & ComponentProps<typeof Group>
-export type TitleProps = {} & ComponentProps<typeof Title>
+export const ActionTrigger = withContext<Toast.ActionTriggerProps>(
+  Toast.ActionTrigger,
+  'actionTrigger',
+)
+
+export const CloseTrigger = withContext<Toast.CloseTriggerProps>(Toast.CloseTrigger, 'closeTrigger')
+
+export const Description = withContext<Toast.DescriptionProps>(Toast.Description, 'description')
+
+export const Title = withContext<Toast.TitleProps>(Toast.Title, 'title')
+
+export {
+  ToastContext as Context,
+  Toaster,
+  createToaster,
+  type ToastContextProps as ContextProps,
+  type ToasterProps,
+} from '@ark-ui/solid'

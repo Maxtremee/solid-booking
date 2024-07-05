@@ -1,14 +1,14 @@
-import { type VariantProps, tv } from 'tailwind-variants'
 import { type HTMLArkProps, ark } from '@ark-ui/solid'
 import { splitProps } from 'solid-js'
+import { type VariantProps, tv } from 'tailwind-variants'
 
-export type LinkProps = {} & LinkVariantProps & HTMLArkProps<'a'>
+export interface LinkProps extends LinkVariantProps, HTMLArkProps<'a'> {}
 
 export const Link = (props: LinkProps) => {
   const [variantProps, linkProps] = splitProps(props, ['class'])
-  return <ark.a class={styles(variantProps)} {...linkProps} />
+  return <ark.a class={link(variantProps)} {...linkProps} />
 }
 
-type LinkVariantProps = VariantProps<typeof styles>
+type LinkVariantProps = VariantProps<typeof link>
 
-const styles = tv({ base: 'link', variants: {} }, { twMerge: false })
+const link = tv({ base: 'link', variants: {} }, { twMerge: false })

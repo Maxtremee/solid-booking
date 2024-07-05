@@ -1,35 +1,30 @@
-import type { HTMLArkProps } from '@ark-ui/solid'
-
-import { type VariantProps, tv } from 'tailwind-variants'
-import { Dynamic } from 'solid-js/web'
+import { type HTMLArkProps, ark } from '@ark-ui/solid'
 import { splitProps } from 'solid-js'
+import { type VariantProps, tv } from 'tailwind-variants'
 
-export type IconProps = {} & IconVariantProps & HTMLArkProps<'svg'>
+export interface IconProps extends IconVariantProps, HTMLArkProps<'svg'> {}
 
 export const Icon = (props: IconProps) => {
-  const [variantProps, iconProps] = splitProps(props, ['size', 'class'])
-  const [localProps, rootProps] = splitProps(iconProps, ['as'])
-  const className = styles(variantProps)
-
-  return <Dynamic component={localProps.as} class={className} {...rootProps} />
+  const [variantProps, buttonProps] = splitProps(props, ['class', 'size'])
+  return <ark.svg class={icon(variantProps)} {...buttonProps} />
 }
 
-type IconVariantProps = VariantProps<typeof styles>
+type IconVariantProps = VariantProps<typeof icon>
 
-const styles = tv(
+const icon = tv(
   {
+    base: 'icon',
+    defaultVariants: { size: 'md' },
     variants: {
       size: {
-        '2xl': 'icon--size_2xl',
         xs: 'icon--size_xs',
         sm: 'icon--size_sm',
         md: 'icon--size_md',
         lg: 'icon--size_lg',
         xl: 'icon--size_xl',
+        '2xl': 'icon--size_2xl',
       },
     },
-    defaultVariants: { size: 'md' },
-    base: 'icon',
   },
   { twMerge: false },
 )

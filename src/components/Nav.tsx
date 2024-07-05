@@ -26,28 +26,24 @@ export default function Nav() {
           </A>
         </li>
         <li>
-          <A href="/accomodations">
-            <Button
-              as="span"
-              variant={
-                location.pathname === "/accomodations" ? "solid" : "ghost"
-              }
-            >
-              Accomodations
-            </Button>
-          </A>
+          <Button
+            variant={location.pathname === "/accomodations" ? "solid" : "ghost"}
+            asChild={(props) => (
+              <A {...props()} href="/accomodations">
+                Accomodations
+              </A>
+            )}
+          />
         </li>
         <li>
-          <A href="/reservations">
-            <Button
-              as="span"
-              variant={
-                location.pathname === "/reservations" ? "solid" : "ghost"
-              }
-            >
-              Reservations
-            </Button>
-          </A>
+          <Button
+            variant={location.pathname === "/reservations" ? "solid" : "ghost"}
+            asChild={(props) => (
+              <A {...props()} href="/reservations">
+                Reservations
+              </A>
+            )}
+          />
         </li>
         <li class="ml-auto h-[40px]">
           <Menu.Root
@@ -62,9 +58,15 @@ export default function Nav() {
             </Menu.Trigger>
             <Menu.Positioner>
               <Menu.Content>
-                <Menu.Item id="logout" as={A} href="/api/logout" rel="external">
-                  <FiLogOut /> Logout
-                </Menu.Item>
+                <Menu.Item
+                  value="logout"
+                  asChild={(props) => (
+                    <A {...props()} href="/api/logout" rel="external">
+                      <FiLogOut /> Logout
+                    </A>
+                  )}
+                  id="logout"
+                />
               </Menu.Content>
             </Menu.Positioner>
           </Menu.Root>

@@ -1,107 +1,126 @@
-import type { ComponentProps } from 'solid-js'
-
 import { Combobox } from '@ark-ui/solid'
-import { tv } from 'tailwind-variants'
-
+import { type VariantProps, tv } from 'tailwind-variants'
 import { createStyleContext } from '~/lib/create-style-context'
 
-const styles = tv(
+const combobox = tv(
   {
-    variants: {
-      size: {
-        sm: {
-          itemGroupLabel: 'combobox__itemGroupLabel--size_sm',
-          itemIndicator: 'combobox__itemIndicator--size_sm',
-          clearTrigger: 'combobox__clearTrigger--size_sm',
-          positioner: 'combobox__positioner--size_sm',
-          itemGroup: 'combobox__itemGroup--size_sm',
-          itemText: 'combobox__itemText--size_sm',
-          control: 'combobox__control--size_sm',
-          trigger: 'combobox__trigger--size_sm',
-          content: 'combobox__content--size_sm',
-          label: 'combobox__label--size_sm',
-          input: 'combobox__input--size_sm',
-          root: 'combobox__root--size_sm',
-          item: 'combobox__item--size_sm',
-        },
-        md: {
-          itemGroupLabel: 'combobox__itemGroupLabel--size_md',
-          itemIndicator: 'combobox__itemIndicator--size_md',
-          clearTrigger: 'combobox__clearTrigger--size_md',
-          positioner: 'combobox__positioner--size_md',
-          itemGroup: 'combobox__itemGroup--size_md',
-          itemText: 'combobox__itemText--size_md',
-          control: 'combobox__control--size_md',
-          trigger: 'combobox__trigger--size_md',
-          content: 'combobox__content--size_md',
-          label: 'combobox__label--size_md',
-          input: 'combobox__input--size_md',
-          root: 'combobox__root--size_md',
-          item: 'combobox__item--size_md',
-        },
-        lg: {
-          itemGroupLabel: 'combobox__itemGroupLabel--size_lg',
-          itemIndicator: 'combobox__itemIndicator--size_lg',
-          clearTrigger: 'combobox__clearTrigger--size_lg',
-          positioner: 'combobox__positioner--size_lg',
-          itemGroup: 'combobox__itemGroup--size_lg',
-          itemText: 'combobox__itemText--size_lg',
-          control: 'combobox__control--size_lg',
-          trigger: 'combobox__trigger--size_lg',
-          content: 'combobox__content--size_lg',
-          label: 'combobox__label--size_lg',
-          input: 'combobox__input--size_lg',
-          root: 'combobox__root--size_lg',
-          item: 'combobox__item--size_lg',
-        },
-      },
-    },
+    base: 'combobox',
+    defaultVariants: { size: 'md' },
     slots: {
-      itemGroupLabel: 'combobox__itemGroupLabel',
-      itemIndicator: 'combobox__itemIndicator',
-      clearTrigger: 'combobox__clearTrigger',
+      root: 'combobox__root',
+      label: 'combobox__label',
+      input: 'combobox__input',
       positioner: 'combobox__positioner',
-      itemGroup: 'combobox__itemGroup',
-      itemText: 'combobox__itemText',
       control: 'combobox__control',
       trigger: 'combobox__trigger',
       content: 'combobox__content',
-      label: 'combobox__label',
-      input: 'combobox__input',
-      root: 'combobox__root',
+      clearTrigger: 'combobox__clearTrigger',
       item: 'combobox__item',
+      itemText: 'combobox__itemText',
+      itemIndicator: 'combobox__itemIndicator',
+      itemGroup: 'combobox__itemGroup',
+      itemGroupLabel: 'combobox__itemGroupLabel',
     },
-    defaultVariants: { size: 'md' },
-    base: 'combobox',
+    variants: {
+      size: {
+        sm: {
+          root: 'combobox__root--size_sm',
+          label: 'combobox__label--size_sm',
+          input: 'combobox__input--size_sm',
+          positioner: 'combobox__positioner--size_sm',
+          control: 'combobox__control--size_sm',
+          trigger: 'combobox__trigger--size_sm',
+          content: 'combobox__content--size_sm',
+          clearTrigger: 'combobox__clearTrigger--size_sm',
+          item: 'combobox__item--size_sm',
+          itemText: 'combobox__itemText--size_sm',
+          itemIndicator: 'combobox__itemIndicator--size_sm',
+          itemGroup: 'combobox__itemGroup--size_sm',
+          itemGroupLabel: 'combobox__itemGroupLabel--size_sm',
+        },
+        md: {
+          root: 'combobox__root--size_md',
+          label: 'combobox__label--size_md',
+          input: 'combobox__input--size_md',
+          positioner: 'combobox__positioner--size_md',
+          control: 'combobox__control--size_md',
+          trigger: 'combobox__trigger--size_md',
+          content: 'combobox__content--size_md',
+          clearTrigger: 'combobox__clearTrigger--size_md',
+          item: 'combobox__item--size_md',
+          itemText: 'combobox__itemText--size_md',
+          itemIndicator: 'combobox__itemIndicator--size_md',
+          itemGroup: 'combobox__itemGroup--size_md',
+          itemGroupLabel: 'combobox__itemGroupLabel--size_md',
+        },
+        lg: {
+          root: 'combobox__root--size_lg',
+          label: 'combobox__label--size_lg',
+          input: 'combobox__input--size_lg',
+          positioner: 'combobox__positioner--size_lg',
+          control: 'combobox__control--size_lg',
+          trigger: 'combobox__trigger--size_lg',
+          content: 'combobox__content--size_lg',
+          clearTrigger: 'combobox__clearTrigger--size_lg',
+          item: 'combobox__item--size_lg',
+          itemText: 'combobox__itemText--size_lg',
+          itemIndicator: 'combobox__itemIndicator--size_lg',
+          itemGroup: 'combobox__itemGroup--size_lg',
+          itemGroupLabel: 'combobox__itemGroupLabel--size_lg',
+        },
+      },
+    },
   },
   { twMerge: false },
 )
-const { withProvider, withContext } = createStyleContext(styles)
+const { withProvider, withContext } = createStyleContext(combobox)
 
-export const Root = withProvider(Combobox.Root, 'root')
-export const ClearTrigger = withContext(Combobox.ClearTrigger, 'clearTrigger')
-export const Content = withContext(Combobox.Content, 'content')
-export const Control = withContext(Combobox.Control, 'control')
-export const Input = withContext(Combobox.Input, 'input')
-export const Item = withContext(Combobox.Item, 'item')
-export const ItemGroup = withContext(Combobox.ItemGroup, 'itemGroup')
-export const ItemGroupLabel = withContext(Combobox.ItemGroupLabel, 'itemGroupLabel')
-export const ItemIndicator = withContext(Combobox.ItemIndicator, 'itemIndicator')
-export const ItemText = withContext(Combobox.ItemText, 'itemText')
-export const Label = withContext(Combobox.Label, 'label')
-export const Positioner = withContext(Combobox.Positioner, 'positioner')
-export const Trigger = withContext(Combobox.Trigger, 'trigger')
+export interface RootProps
+  extends Combobox.RootProps<Combobox.CollectionItem>,
+    VariantProps<typeof combobox> {}
+export const Root = withProvider<RootProps>(Combobox.Root, 'root')
 
-export type RootProps = ComponentProps<typeof Root>
-export type ClearTriggerProps = {} & ComponentProps<typeof ClearTrigger>
-export type ContentProps = {} & ComponentProps<typeof Content>
-export type ControlProps = {} & ComponentProps<typeof Control>
-export type InputProps = {} & ComponentProps<typeof Input>
-export type ItemProps = {} & ComponentProps<typeof Item>
-export type ItemGroupProps = {} & ComponentProps<typeof ItemGroup>
-export type ItemGroupLabelProps = {} & ComponentProps<typeof ItemGroupLabel>
-export type ItemIndicatorProps = {} & ComponentProps<typeof ItemIndicator>
-export type ItemTextProps = {} & ComponentProps<typeof ItemText>
-export type LabelProps = {} & ComponentProps<typeof Label>
-export type PositionerProps = {} & ComponentProps<typeof Positioner>
-export type TriggerProps = {} & ComponentProps<typeof Trigger>
+export const ClearTrigger = withContext<Combobox.ClearTriggerProps>(
+  Combobox.ClearTrigger,
+  'clearTrigger',
+)
+
+export const Content = withContext<Combobox.ContentProps>(Combobox.Content, 'content')
+
+export const Control = withContext<Combobox.ControlProps>(Combobox.Control, 'control')
+
+export const Input = withContext<Combobox.InputProps>(Combobox.Input, 'input')
+
+export const ItemGroupLabel = withContext<Combobox.ItemGroupLabelProps>(
+  Combobox.ItemGroupLabel,
+  'itemGroupLabel',
+)
+
+export const ItemGroup = withContext<Combobox.ItemGroupProps>(Combobox.ItemGroup, 'itemGroup')
+
+export const ItemIndicator = withContext<Combobox.ItemIndicatorProps>(
+  Combobox.ItemIndicator,
+  'itemIndicator',
+)
+
+export const Item = withContext<Combobox.ItemProps>(Combobox.Item, 'item')
+
+export const ItemText = withContext<Combobox.ItemTextProps>(Combobox.ItemText, 'itemText')
+
+export const Label = withContext<Combobox.LabelProps>(Combobox.Label, 'label')
+
+export const Positioner = withContext<Combobox.PositionerProps>(Combobox.Positioner, 'positioner')
+
+export const Trigger = withContext<Combobox.TriggerProps>(Combobox.Trigger, 'trigger')
+
+export {
+  ComboboxContext as Context,
+  type ComboboxContextProps as ContextProps,
+} from '@ark-ui/solid'
+
+export type {
+  ComboboxHighlightChangeDetails as HighlightChangeDetails,
+  ComboboxInputValueChangeDetails as InputValueChangeDetails,
+  ComboboxOpenChangeDetails as OpenChangeDetails,
+  ComboboxValueChangeDetails as ValueChangeDetails,
+} from '@ark-ui/solid'

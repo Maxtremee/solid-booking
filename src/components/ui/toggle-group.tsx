@@ -1,12 +1,13 @@
-import type { ComponentProps } from 'solid-js'
-
 import { ToggleGroup } from '@ark-ui/solid'
+import type { ComponentProps } from 'solid-js'
 import { tv } from 'tailwind-variants'
-
 import { createStyleContext } from '~/lib/create-style-context'
 
-const styles = tv(
+const toggleGroup = tv(
   {
+    base: 'toggleGroup',
+    defaultVariants: { size: 'md', variant: 'outline' },
+    slots: { root: 'toggleGroup__root', item: 'toggleGroup__item' },
     variants: {
       variant: {
         outline: {
@@ -24,16 +25,13 @@ const styles = tv(
         lg: { root: 'toggleGroup__root--size_lg', item: 'toggleGroup__item--size_lg' },
       },
     },
-    slots: { root: 'toggleGroup__root', item: 'toggleGroup__item' },
-    defaultVariants: { variant: 'outline', size: 'md' },
-    base: 'toggleGroup',
   },
   { twMerge: false },
 )
-const { withProvider, withContext } = createStyleContext(styles)
+const { withProvider, withContext } = createStyleContext(toggleGroup)
 
 export const Root = withProvider(ToggleGroup.Root, 'root')
 export const Item = withContext(ToggleGroup.Item, 'item')
 
 export type RootProps = ComponentProps<typeof Root>
-export type ItemProps = {} & ComponentProps<typeof Item>
+export interface ItemProps extends ComponentProps<typeof Item> {}

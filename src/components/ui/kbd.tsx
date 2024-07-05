@@ -1,21 +1,21 @@
-import { type VariantProps, tv } from 'tailwind-variants'
 import { type HTMLArkProps, ark } from '@ark-ui/solid'
 import { splitProps } from 'solid-js'
+import { type VariantProps, tv } from 'tailwind-variants'
 
-export type KbdProps = {} & KbdVariantProps & HTMLArkProps<'kbd'>
+export interface KbdProps extends KbdVariantProps, HTMLArkProps<'kbd'> {}
 
 export const Kbd = (props: KbdProps) => {
   const [variantProps, kbdProps] = splitProps(props, ['class', 'size'])
-  return <ark.kbd class={styles(variantProps)} {...kbdProps} />
+  return <ark.kbd class={kbd(variantProps)} {...kbdProps} />
 }
 
-type KbdVariantProps = VariantProps<typeof styles>
+type KbdVariantProps = VariantProps<typeof kbd>
 
-const styles = tv(
+const kbd = tv(
   {
-    variants: { size: { sm: 'kbd--size_sm', md: 'kbd--size_md', lg: 'kbd--size_lg' } },
-    defaultVariants: { size: 'md' },
     base: 'kbd',
+    defaultVariants: { size: 'md' },
+    variants: { size: { sm: 'kbd--size_sm', md: 'kbd--size_md', lg: 'kbd--size_lg' } },
   },
   { twMerge: false },
 )

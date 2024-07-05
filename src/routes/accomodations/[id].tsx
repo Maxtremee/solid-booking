@@ -49,9 +49,7 @@ export default function Accomodation(props: RouteSectionProps) {
           <Text class="pt-4">{accomodation()!.description}</Text>
           <div class="flex justify-end pt-4">
             <A href={`/accomodations/${accomodation()!.id}/book`}>
-              <Button as="span" variant="solid">
-                Book now
-              </Button>
+              <Button variant="solid">Book now</Button>
             </A>
           </div>
         </section>

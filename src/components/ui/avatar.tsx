@@ -1,68 +1,68 @@
-import { type AvatarRootProps, Avatar as ArkAvatar } from '@ark-ui/solid'
-import { type VariantProps, tv } from 'tailwind-variants'
+import { Avatar as ArkAvatar, type AvatarRootProps } from '@ark-ui/solid'
 import { splitProps } from 'solid-js'
+import { type VariantProps, tv } from 'tailwind-variants'
 
-export type AvatarProps = {
+export interface AvatarProps extends AvatarRootProps, AvatarVariantProps {
   name?: string
   src?: string
-} & AvatarRootProps & AvatarVariantProps
+}
 
 export const Avatar = (props: AvatarProps) => {
   const [variantProps, avatarProps] = splitProps(props, ['size', 'class'])
   const [localProps, rootProps] = splitProps(avatarProps, ['name', 'src'])
-  const { fallback, image, root } = styles(variantProps)
+  const { root, fallback, image } = avatar(variantProps)
 
   return (
     <ArkAvatar.Root class={root({ class: variantProps.class })} {...rootProps}>
       <ArkAvatar.Fallback class={fallback()}>
         {getInitials(localProps.name) || <UserIcon />}
       </ArkAvatar.Fallback>
-      <ArkAvatar.Image alt={localProps.name} src={localProps.src} class={image()} />
+      <ArkAvatar.Image class={image()} src={localProps.src} alt={localProps.name} />
     </ArkAvatar.Root>
   )
 }
 
-type AvatarVariantProps = VariantProps<typeof styles>
+type AvatarVariantProps = VariantProps<typeof avatar>
 
-const styles = tv(
+const avatar = tv(
   {
+    base: 'avatar',
+    defaultVariants: { size: 'md' },
+    slots: { root: 'avatar__root', image: 'avatar__image', fallback: 'avatar__fallback' },
     variants: {
       size: {
-        '2xl': {
-          fallback: 'avatar__fallback--size_2xl',
-          image: 'avatar__image--size_2xl',
-          root: 'avatar__root--size_2xl',
-        },
         xs: {
-          fallback: 'avatar__fallback--size_xs',
-          image: 'avatar__image--size_xs',
           root: 'avatar__root--size_xs',
+          image: 'avatar__image--size_xs',
+          fallback: 'avatar__fallback--size_xs',
         },
         sm: {
-          fallback: 'avatar__fallback--size_sm',
-          image: 'avatar__image--size_sm',
           root: 'avatar__root--size_sm',
+          image: 'avatar__image--size_sm',
+          fallback: 'avatar__fallback--size_sm',
         },
         md: {
-          fallback: 'avatar__fallback--size_md',
-          image: 'avatar__image--size_md',
           root: 'avatar__root--size_md',
+          image: 'avatar__image--size_md',
+          fallback: 'avatar__fallback--size_md',
         },
         lg: {
-          fallback: 'avatar__fallback--size_lg',
-          image: 'avatar__image--size_lg',
           root: 'avatar__root--size_lg',
+          image: 'avatar__image--size_lg',
+          fallback: 'avatar__fallback--size_lg',
         },
         xl: {
-          fallback: 'avatar__fallback--size_xl',
-          image: 'avatar__image--size_xl',
           root: 'avatar__root--size_xl',
+          image: 'avatar__image--size_xl',
+          fallback: 'avatar__fallback--size_xl',
+        },
+        '2xl': {
+          root: 'avatar__root--size_2xl',
+          image: 'avatar__image--size_2xl',
+          fallback: 'avatar__fallback--size_2xl',
         },
       },
     },
-    slots: { fallback: 'avatar__fallback', image: 'avatar__image', root: 'avatar__root' },
-    defaultVariants: { size: 'md' },
-    base: 'avatar',
   },
   { twMerge: false },
 )
@@ -70,10 +70,10 @@ const styles = tv(
 const UserIcon = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    stroke="currentColor"
     viewBox="0 0 24 24"
-    stroke-width="2"
     fill="none"
+    stroke="currentColor"
+    stroke-width="2"
   >
     <title>User</title>
     <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />

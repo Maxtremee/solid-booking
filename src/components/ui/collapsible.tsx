@@ -1,28 +1,29 @@
-import type { ComponentProps } from 'solid-js'
-
 import { Collapsible } from '@ark-ui/solid'
-import { tv } from 'tailwind-variants'
-
+import { type VariantProps, tv } from 'tailwind-variants'
 import { createStyleContext } from '~/lib/create-style-context'
 
-const styles = tv(
+const collapsible = tv(
   {
+    base: 'collapsible',
     slots: {
+      root: 'collapsible__root',
       trigger: 'collapsible__trigger',
       content: 'collapsible__content',
-      root: 'collapsible__root',
     },
-    base: 'collapsible',
     variants: {},
   },
   { twMerge: false },
 )
-const { withProvider, withContext } = createStyleContext(styles)
+const { withProvider, withContext } = createStyleContext(collapsible)
 
-export const Root = withProvider(Collapsible.Root, 'root')
-export const Content = withContext(Collapsible.Content, 'content')
-export const Trigger = withContext(Collapsible.Trigger, 'trigger')
+export interface RootProps extends Collapsible.RootProps, VariantProps<typeof collapsible> {}
+export const Root = withProvider<RootProps>(Collapsible.Root, 'root')
 
-export type RootProps = ComponentProps<typeof Root>
-export type ContentProps = {} & ComponentProps<typeof Content>
-export type TriggerProps = {} & ComponentProps<typeof Trigger>
+export const Content = withContext<Collapsible.ContentProps>(Collapsible.Content, 'content')
+
+export const Trigger = withContext<Collapsible.TriggerProps>(Collapsible.Trigger, 'trigger')
+
+export {
+  CollapsibleContext as Context,
+  type CollapsibleContextProps as ContextProps,
+} from '@ark-ui/solid'
