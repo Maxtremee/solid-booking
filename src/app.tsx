@@ -15,11 +15,11 @@ export default function App() {
       <Router
         root={(props) => (
           <>
-            <Show when={props.location.pathname !== "/login"}>
-              <Nav />
-            </Show>
             <Suspense>
-              <main class="mx-auto max-w-3xl p-3">{props.children}</main>
+              <Show when={props.location.pathname !== "/login"}>
+                <Nav />
+              </Show>
+              <main class="mx-auto max-w-3xl px-4">{props.children}</main>
             </Suspense>
           </>
         )}

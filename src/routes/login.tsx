@@ -9,7 +9,7 @@ export default function LoginPage() {
         Solid Booking
       </Heading>
       <Button
-        variant="ghost"
+        variant="link"
         asChild={(props) => (
           <A {...props()} href="/api/login/github" rel="external">
             Sign in

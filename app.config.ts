@@ -6,7 +6,8 @@ export default defineConfig({
   server: {
     preset: "bun",
   },
-  ssr: false,
+  ssr: true,
+  // @ts-expect-error
   vite() {
     return {
       plugins: [tsconfigPaths()],

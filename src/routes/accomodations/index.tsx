@@ -1,5 +1,5 @@
 import { RouteDefinition, createAsync, A } from "@solidjs/router";
-import { For, Show, Suspense } from "solid-js";
+import { For, Match, Show, Suspense, Switch } from "solid-js";
 import * as Card from "~/components/ui/card";
 import { Skeleton } from "~/components/ui/skeleton";
 import { getAccomodations } from "~/models/accomodation";
@@ -31,19 +31,38 @@ export default function Accomodations() {
         }
       >
         <Show when={accomodations()}>
-          <For each={accomodations()}>
-            {(accomodation) => (
-              <A href={`/accomodations/${accomodation.id}`}>
-                <Card.Root>
-                  <Card.Header>
-                    <Card.Title>{accomodation.name}</Card.Title>
-                  </Card.Header>
-                  <Card.Body>{accomodation.description}</Card.Body>
-                  <Card.Footer>${accomodation.price}</Card.Footer>
-                </Card.Root>
-              </A>
-            )}
-          </For>
+          <Switch>
+            <Match when={accomodations()!.length > 0}>
+              <For each={accomodations()}>
+                {(accomodation) => (
+                  <Card.Root
+                    asChild={(props) => (
+                      <A
+                        {...props()}
+                        href={`/accomodations/${accomodation.id}`}
+                      />
+                    )}
+                  >
+                    <Card.Header>
+                      <Card.Title>{accomodation.name}</Card.Title>
+                    </Card.Header>
+                    <Card.Body>{accomodation.description}</Card.Body>
+                    <Card.Footer>${accomodation.price}</Card.Footer>
+                  </Card.Root>
+                )}
+              </For>
+            </Match>
+            <Match when={accomodations()!.length < 1}>
+              <Card.Root>
+                <Card.Header>
+                  <Card.Title>No accomodations found</Card.Title>
+                </Card.Header>
+                <Card.Body>
+                  <p>There are no accomodations available at the moment.</p>
+                </Card.Body>
+              </Card.Root>
+            </Match>
+          </Switch>
         </Show>
       </Suspense>
     </div>

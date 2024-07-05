@@ -27,7 +27,9 @@ export default function Nav() {
         </li>
         <li>
           <Button
-            variant={location.pathname === "/accomodations" ? "solid" : "ghost"}
+            variant={
+              location.pathname.startsWith("/accomodations") ? "solid" : "ghost"
+            }
             asChild={(props) => (
               <A {...props()} href="/accomodations">
                 Accomodations
@@ -37,7 +39,9 @@ export default function Nav() {
         </li>
         <li>
           <Button
-            variant={location.pathname === "/reservations" ? "solid" : "ghost"}
+            variant={
+              location.pathname.startsWith("/reservations") ? "solid" : "ghost"
+            }
             asChild={(props) => (
               <A {...props()} href="/reservations">
                 Reservations
@@ -45,7 +49,17 @@ export default function Nav() {
             )}
           />
         </li>
-        <li class="ml-auto h-[40px]">
+        <li class="ml-auto">
+          <Suspense fallback={<Avatar name="" />}>
+            <Avatar name={user()?.name || ""} src={user()?.avatar || ""} />
+          </Suspense>
+        </li>
+        <li>
+          <A href="/api/logout" rel="external">
+            <FiLogOut /> Logout
+          </A>
+        </li>
+        {/* <li class="ml-auto h-[40px]">
           <Menu.Root
             positioning={{
               placement: "bottom-end",
@@ -70,7 +84,7 @@ export default function Nav() {
               </Menu.Content>
             </Menu.Positioner>
           </Menu.Root>
-        </li>
+        </li> */}
       </ul>
     </nav>
   );
